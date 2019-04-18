@@ -10,9 +10,8 @@ const state = {
     team2: { name: "manchester", goals: 2 },
     start_time: 1555343697,
     ellapsed_seconds: 0,
-    events: [],
     miTemps: "2",
-    event: [
+    events: [
       {
         id: 0,
         type: "Mi-temps",

@@ -1,171 +1,144 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-card height="135" color="white" class="white--text"> </v-card>
-    </v-flex>
-    <v-flex xs12>
-      <v-card color="#ddd" class="dark--text">
-        <v-layout>
-          <v-flex xs2>
-            <v-icon large>swap_vert</v-icon>changement
-            <v-icon large>alarm_on</v-icon>coup d'envoi
-            <v-icon large>alarm_off</v-icon>fin du match
-            <v-icon large>launch</v-icon>
-            <v-icon large>thumb_down</v-icon>
-            <v-icon large>not_interested</v-icon>
-            <v-icon large>language</v-icon>
-            <v-icon large>group_work</v-icon>
-            <span class="empilement">
-              <v-icon large class="empile">panorama_fish_eye</v-icon>
-              <v-icon large class="empile moins-large">grain</v-icon>
-            </span>
-            <v-icon large>accessibility_new</v-icon>
-            <v-icon large>tab</v-icon>corner <v-icon large>flag</v-icon>hors jeu
-            <v-icon large>child_care</v-icon>
-            <v-icon large>sentiment_very_satisfied</v-icon>
-            <v-icon large>sentiment_very_dissatisfied</v-icon>
-          </v-flex>
-          <v-flex xs10>
-            <v-card-title primary-title>
-              <div>
-                <div class="headline">Supermodel</div>
-                <div>Foster the People</div>
-                <div>(2014)</div>
-              </div>
-            </v-card-title>
-          </v-flex>
-        </v-layout>
-        <v-divider light></v-divider>
-        <v-card-actions class="pa-3">
-          <v-spacer></v-spacer>
-          <IconButton
-            icon="favorite_border"
-            iconSelected="favorite"
-            colorHover="pink"
-            colorSelected="pink"
-            hasSelection
-            tooltip="Aimer"
-            tooltipSelected="Détester"
-            animation="heart-beat"
-          ></IconButton>
-          <IconButton
-            icon="share"
-            colorHover="blue"
-            tooltip="Partager"
-          ></IconButton>
-
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <v-icon
-                v-on="on"
-                class="hand"
-                @mouseover="shareHover = true;"
-                @mouseleave="shareHover = false;"
-                :color="shareHover ? 'blue' : 'dark-grey'"
-                >share</v-icon
-              >
-            </template>
-            <span>Partager</span>
-          </v-tooltip>
-        </v-card-actions>
+      <v-card color="#fff" class="margin-bottom-space">
+        <v-container grid-list-xl>
+          <v-layout>
+            <v-flex xs2>
+              <v-layout row>
+                <v-flex xs12> <h3>&nbsp;</h3> </v-flex>
+              </v-layout>
+              <v-layout row> <v-flex xs12 class="icon"> </v-flex> </v-layout>
+            </v-flex>
+            <v-flex xs10>
+              <v-card-title primary-title>
+                <div><div class="headline">&nbsp;</div></div>
+              </v-card-title>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </v-card>
     </v-flex>
-
     <v-flex xs12>
-      <v-card color="white" class="dark--text">
-        <v-layout row>
-          <v-flex xs7>
-            <v-card-title primary-title>
-              <div>
-                <div class="headline">Halycon Days</div>
-                <div>Ellie Goulding</div>
-                <div>(2013)</div>
-              </div>
-            </v-card-title>
-          </v-flex>
-          <v-flex xs5>
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-              height="125px"
-              contain
-            ></v-img>
-          </v-flex>
-        </v-layout>
-        <v-divider light></v-divider>
-        <v-card-actions class="pa-3"
-          >Rate this album
-          <v-spacer></v-spacer>
-          <v-icon>md-star</v-icon>
-          <v-icon>star_border</v-icon>
-          <v-icon>star_border</v-icon>
-          <v-icon>star_border</v-icon>
-        </v-card-actions>
-      </v-card>
+      <transition-group name="list-complete" tag="p">
+        <v-card
+          :key="event.id"
+          v-for="(event, index) in events"
+          :color="index % 2 == 0 ? '#fff' : '#eee'"
+        >
+          <v-container grid-list-xl>
+            <v-layout>
+              <v-flex xs2>
+                <v-layout row>
+                  <v-flex xs12>
+                    <h3>{{ event.id < 10 ? "0" : "" }}{{ event.id }}'</h3>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex xs12 class="icon">
+                    <IconsEmpilees
+                      v-if="event.type == 'Goal!!'"
+                      :icons="[
+                        { name: 'panorama_fish_eye' },
+                        { name: 'grain', classes: 'moins-large' }
+                      ]"
+                    ></IconsEmpilees>
+                    <v-icon v-if="event.type == 'Changement'" large
+                      >swap_vert</v-icon
+                    >
+                    <v-icon v-if="event.type == 'Mi-temps'" large
+                      >alarm_on</v-icon
+                    >
+                    <v-icon v-if="event.type == 'Fin'" large>alarm_off</v-icon>
+                    <v-icon v-if="event.type == 'Touche'" large>launch</v-icon>
+                    <v-icon v-if="event.type == 'Faute'" large color="yellow"
+                      >insert_drive_file</v-icon
+                    >
+                    <v-icon v-if="event.type == 'Expulsion!'" large color="red"
+                      >insert_drive_file</v-icon
+                    >
+                    <v-icon v-if="event.type == 'Striker!'" large
+                      >accessibility_new</v-icon
+                    >
+                    <v-icon v-if="event.type == 'Corner'" large>tab</v-icon>
+                    <v-icon v-if="event.type == 'Hors-jeu'" large>flag</v-icon>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+              <v-flex xs10>
+                <v-card-title primary-title>
+                  <div><div class="headline" v-html="event.message"></div></div>
+                </v-card-title>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <v-divider light></v-divider>
+          <v-card-actions class="pa-3">
+            <v-spacer></v-spacer>
+            <IconButton
+              icon="favorite_border"
+              iconSelected="favorite"
+              colorHover="pink"
+              colorSelected="pink"
+              hasSelection
+              tooltip="Aimer"
+              tooltipSelected="Détester"
+              animation="heart-beat"
+            ></IconButton>
+            <IconButton
+              icon="share"
+              colorHover="blue"
+              tooltip="Partager"
+            ></IconButton>
+          </v-card-actions>
+        </v-card>
+      </transition-group>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import IconButton from "./IconButton";
+import IconsEmpilees from "./IconsEmpilees";
 
 export default {
   name: "Events",
   components: {
-    IconButton
-  },
-  props: {
-    msg: String
+    IconButton,
+    IconsEmpilees
   },
   data() {
     return {
       favHover: false,
       favSelected: false,
-      shareHover: false
+      shareHover: false,
+      eventsCopy: []
     };
+  },
+  computed: {
+    events() {
+      let events = this.$store.getters.getMatch.events.slice(
+        this.eventsCopy.length,
+        this.$store.getters.getMatch.events.length
+      );
+      this.eventsCopy = this.eventsCopy
+        .slice()
+        .reverse()
+        .concat(events)
+        .reverse();
+      return this.eventsCopy;
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.empilement {
-  position: relative;
-  display: block;
-  width: 35px;
-  height: 35px;
+.margin-bottom-space {
+  margin-bottom: 40px;
 }
-.empile {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.moins-large {
-  font-size: 32px !important;
-}
-.hand {
-  cursor: pointer;
-}
-.heart-beat {
-  animation: beat 1.5s infinite;
-  animation-fill-mode: forwards;
-}
-
-@keyframes beat {
-  0% {
-    transform: scale(0.6);
-  }
-  25% {
-    transform: scale(0.8);
-  }
-  40% {
-    transform: scale(0.6);
-  }
-  60% {
-    transform: scale(0.8);
-  }
-  100% {
-    transform: scale(0.6);
-  }
+.icon {
+  padding-top: 2px !important;
+  padding-left: 5px !important;
 }
 </style>

@@ -7,8 +7,8 @@
         @click="hasSelection ? (selected = !selected) : '';"
         @mouseover="hover = !selected;"
         @mouseleave="hover = selected;"
-        :color="selected || hover ? colorSelected : color"
-        >{{ selected || hover ? iconSelected : icon }}</v-icon
+        :color="selected || hover ? colorHover : color"
+        >{{ selected || hover ? iconSelection : icon }}</v-icon
       >
     </template>
     <span>{{ !selected ? tooltip : tooltipSelected }}</span>
@@ -20,7 +20,10 @@ export default {
   name: "IconButton",
   props: {
     icon: String,
-    iconSelected: String,
+    iconSelected: {
+      default: null,
+      type: String
+    },
     color: {
       default: "dark-grey",
       type: String
@@ -50,8 +53,13 @@ export default {
   data() {
     return {
       hover: false,
-      selected: false
+      selected: false,
+      iconSelection: null
     };
+  },
+  mounted() {
+    this.iconSelection = this.iconSelected;
+    !this.iconSelected && (this.iconSelection = this.icon);
   }
 };
 </script>

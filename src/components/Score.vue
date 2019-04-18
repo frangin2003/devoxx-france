@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar id="score-board-toolbar" color="light-green" fixed height=150>
+  <v-toolbar id="score-board-toolbar" color="light-green" fixed height=160>
     <v-container grid-list-md text-xs-center>
     <!-- align-center vertical aligns -->
     <v-layout row wrap align-center>
